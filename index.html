@@ -5,31 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Microsoft Defender</title>
 <style>
-/* ============================================================
-   Operation Silent Ledger  ·  SOC tabletop exercise
-   Single file, offline, no dependencies.
-
-   Portal layer    = Microsoft Fluent (authentic reproduction)
-   Exercise layer  = IT Professor (deep indigo glass, navy to amber spine)
-
-   The two layers are deliberately different materials so a room
-   never confuses "the portal is telling me this" with
-   "the exercise is telling me this".
-   ============================================================ */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* IT Professor palette, sampled from Profo */
-  --ip-blue:#1F8EE6;    /* Profo body */
-  --ip-blue2:#5AB0F0;   /* lighter body */
-  --ip-sky:#AFD5EF;     /* face mask and belly */
-  --ip-navy:#31448C;    /* glasses, brand navy */
-  --ip-deep:#131B41;    /* dark surface base */
-  --ip-deep2:#1E2A63;   /* dark surface, lighter end */
-  --ip-amber:#F6A01E;   /* beak and feet, accent on dark */
-  --ip-gold:#FBD46B;    /* beak highlight */
-  --ip-burnt:#DA5C1F;   /* beak underside, accent fill on light */
-  --ip-acc:#C24E15;     /* accent text on light surfaces, AA on white */
-  --ip-ink:#545355;     /* pupils */
+
+  --ip-blue:#1F8EE6;
+  --ip-blue2:#5AB0F0;
+  --ip-sky:#AFD5EF;
+  --ip-navy:#31448C;
+  --ip-deep:#131B41;
+  --ip-deep2:#1E2A63;
+  --ip-amber:#F6A01E;
+  --ip-gold:#FBD46B;
+  --ip-burnt:#DA5C1F;
+  --ip-acc:#C24E15;
+  --ip-ink:#545355;
 
   --ms-blue:#0F6CBD; --ms-bg:#FAF9F8; --ms-line:#E1DFDD; --ms-line2:#EDEBE9;
   --ms-txt:#242424; --ms-mut:#616161; --ms-mut2:#8A8886;
@@ -75,7 +64,6 @@ a:hover{text-decoration:underline}
 .shimmer::after{content:'';position:absolute;top:0;bottom:0;left:0;width:38%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:sweep 2.6s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
 
-/* ---------------- app frame ---------------- */
 #app{height:100vh;display:flex;flex-direction:column;background:var(--ms-bg)}
 #topbar{height:48px;background:#000;display:flex;align-items:center;flex-shrink:0;color:#fff;position:relative;z-index:60}
 #frame{flex:1;display:flex;min-height:0;position:relative}
@@ -89,7 +77,6 @@ a:hover{text-decoration:underline}
 #stagewrap > *{animation:stagein .42s cubic-bezier(.2,.9,.3,1) both}
 body.consoleon #app{height:calc(100vh - var(--console-h))}
 
-/* ---------------- portal atoms ---------------- */
 .crumbs{padding:10px 24px 0;font-size:12px;color:var(--ms-mut);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .crumbs .sep{color:#A19F9D}
 .crumbs a{color:var(--ms-mut)}
@@ -157,13 +144,11 @@ body.consoleon #app{height:calc(100vh - var(--console-h))}
 .kv .k{color:var(--ms-mut)}
 .kv .v{color:var(--ms-txt);word-break:break-word}
 
-/* KQL surface */
 .kql{background:#fff;border:1px solid var(--ms-line);border-radius:4px;overflow:hidden}
 .kql .bar{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--ms-line2);background:#FAF9F8}
 .kql pre{margin:0;padding:12px 14px;font-family:var(--mono);font-size:12.5px;line-height:1.65;color:#1F1F1F;white-space:pre-wrap;min-height:40px;overflow-x:auto}
 .k-op{color:#0000FF}.k-fn{color:#795E26}.k-str{color:#A31515}.k-num{color:#098658}.k-tab{color:#B03D00;font-weight:600}.k-cmt{color:#008000}
 
-/* Entity page tags, as rendered on the Defender identity page */
 .etag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:2px;font-size:10.5px;font-weight:700;letter-spacing:.3px}
 .etag.pim{background:#A4262C;color:#fff}
 .etag.ueba{background:#6E6412;color:#fff}
@@ -178,7 +163,6 @@ body.consoleon #app{height:calc(100vh - var(--console-h))}
 .sevleg{display:flex;gap:14px;font-size:11.5px;color:#424242;flex-wrap:wrap}
 .sevleg i{width:9px;height:9px;display:inline-block;margin-right:5px;border-radius:1px}
 
-/* Teams surface */
 .tm{background:#F5F5F5;border:1px solid var(--ms-line);border-radius:6px;overflow:hidden}
 .tm-hd{background:#fff;border-bottom:1px solid var(--ms-line);padding:10px 16px;display:flex;align-items:center;gap:11px}
 .tm-body{padding:16px}
@@ -189,18 +173,12 @@ body.consoleon #app{height:calc(100vh - var(--console-h))}
 .tm-nm span{font-weight:400;color:var(--ms-mut2);font-size:11.5px;margin-left:7px}
 .tm-txt{font-size:12.8px;line-height:1.55;color:#3B3A39}
 
-/* Outlook style message */
 .ol{border:1px solid var(--ms-line);border-radius:4px;background:#fff;overflow:hidden}
 .ol .oh{padding:12px 16px;border-bottom:1px solid var(--ms-line2)}
 .ol .subj{font-size:15px;font-weight:600;margin-bottom:7px}
 .ol .ob{padding:14px 16px;font-size:13px;line-height:1.6;color:#3B3A39}
 .ol .att{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--ms-line);border-radius:4px;padding:7px 11px;font-size:12.5px;margin-top:10px;background:#FAF9F8}
 
-/* ============================================================
-   EXERCISE LAYER  ·  IT Professor console
-   Deep indigo glass, condensed uppercase labels, mono numerals,
-   one navy to amber spine. Never mistaken for the portal.
-   ============================================================ */
 #console{position:fixed;left:0;right:0;bottom:0;height:var(--console-h);z-index:880;
   background:linear-gradient(180deg,var(--ip-deep2) 0%,var(--ip-deep) 100%);
   color:#fff;display:flex;align-items:center;gap:14px;padding:0 14px;
@@ -215,8 +193,7 @@ body:not(.consoleon) #console::after{content:'';position:absolute;top:0;left:0;r
 .c-phno{font-family:var(--mono);font-size:25px;font-weight:700;color:var(--ip-amber);line-height:1;letter-spacing:-1px}
 .c-eyebrow{font-family:var(--con);font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:#94A6D4;margin-bottom:2px}
 .c-title{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px;max-width:230px}
-/* phase pips: the facilitator can see the whole run at a glance, and the
-   colour of each pip is the verdict that was recorded on it. */
+
 .c-pips{display:flex;gap:4px;align-items:center;flex-shrink:0;padding:0 4px}
 .c-pip{width:21px;height:21px;border-radius:7px;border:1px solid rgba(255,255,255,.22);background:transparent;
   color:rgba(255,255,255,.55);font-family:var(--mono);font-size:9.5px;font-weight:700;cursor:pointer;padding:0;
@@ -252,20 +229,15 @@ body:not(.consoleon) #console::after{content:'';position:absolute;top:0;left:0;r
 .cbtn.on{background:var(--ip-amber);border-color:var(--ip-amber);color:var(--ip-deep)}
 .cbtn kbd{font-family:var(--mono);font-size:9.5px;opacity:.7;border:1px solid rgba(255,255,255,.3);border-radius:3px;padding:0 3px}
 .cbtn:disabled{opacity:.32;cursor:default}
-/* reset arms before it fires, so a facilitator cannot lose a run on one click */
+
 .cbtn.arm{background:#C42B1C;border-color:#C42B1C;color:#fff;animation:pulsered 1.5s ease-in-out infinite}
 .cbtn.arm:hover{background:#A81F12;border-color:#A81F12}
 
-/* simulation watermark: nobody should ever think this is a live tenant */
 #simband{position:fixed;top:0;left:0;right:0;height:3px;z-index:999;pointer-events:none;
   background:repeating-linear-gradient(135deg,var(--ip-amber) 0 12px,var(--ip-navy) 12px 24px)}
 #simtag{position:fixed;top:11px;left:50%;transform:translateX(-50%);z-index:998;pointer-events:none;
   font-family:var(--con);font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.42);white-space:nowrap}
 
-/* ---------------- inject banner ----------------
-   Sits at the top of the content area like a Defender message bar,
-   but carries the navy to amber spine so the room knows exercise
-   control is speaking rather than the product. */
 #inject{background:#fff;border-bottom:1px solid var(--ms-line);border-left:4px solid transparent;
   border-image:linear-gradient(180deg,var(--ip-navy),var(--ip-amber)) 1;
   box-shadow:0 2px 10px rgba(0,18,58,.07);padding:12px 22px;display:flex;gap:13px;align-items:flex-start;
@@ -276,7 +248,6 @@ body:not(.consoleon) #console::after{content:'';position:absolute;top:0;left:0;r
 #inject .d{font-size:12.8px;line-height:1.55;color:#3B3A39}
 #inject .src{font-size:11px;color:var(--ms-mut2);margin-top:6px;font-family:var(--mono)}
 
-/* ---------------- decision blade ---------------- */
 #dblade{position:absolute;right:0;top:0;bottom:0;width:452px;background:#fff;z-index:120;display:flex;flex-direction:column;
   border-left:4px solid transparent;border-image:linear-gradient(180deg,var(--ip-navy),var(--ip-amber)) 1;box-shadow:-16px 0 44px rgba(19,27,65,.22);animation:slidein .36s cubic-bezier(.2,.9,.3,1) both}
 #dblade .dh{background:var(--ip-deep);color:#fff;padding:13px 17px;flex-shrink:0}
@@ -311,7 +282,6 @@ body:not(.consoleon) #console::after{content:'';position:absolute;top:0;left:0;r
 .fb b{color:var(--ip-navy)}
 .fb .l{font-family:var(--con);font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--ip-acc);margin-bottom:4px;display:block}
 
-/* ---------------- facilitator drawer ---------------- */
 #facil{position:fixed;right:0;top:0;bottom:var(--console-h);width:390px;z-index:890;background:#fff;
   border-left:1px solid var(--ms-line);box-shadow:-14px 0 40px rgba(0,18,58,.16);transform:translateX(100%);
   transition:transform .34s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
@@ -342,7 +312,6 @@ body:not(.consoleon) #facil{bottom:6px}
 #facil .ph.on .n{background:var(--ip-acc);color:#fff}
 #facil .ph.past .n{background:var(--ip-navy);color:#fff}
 
-/* ---------------- full screens: brief, debrief ---------------- */
 #screen{position:fixed;inset:0;z-index:900;background:var(--ip-deep);overflow-y:auto;display:none;
   background-image:radial-gradient(900px 480px at 84% -10%,rgba(246,160,30,.16),transparent 60%),
                    radial-gradient(820px 460px at 4% 104%,rgba(31,142,230,.22),transparent 62%)}
@@ -381,7 +350,6 @@ body:not(.consoleon) #facil{bottom:6px}
 .tlrow .tl .h{font-family:var(--mono);font-size:11px;color:#fff;font-weight:700}
 .tlrow .tl .s{font-size:10.5px;color:#94A6D4;margin-top:2px;line-height:1.3}
 
-/* score ring + bars */
 .ring{position:relative;width:172px;height:172px;flex-shrink:0}
 .ring svg{transform:rotate(-90deg)}
 .ring .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -401,7 +369,6 @@ body:not(.consoleon) #facil{bottom:6px}
 .dim .tr i{display:block;height:100%;border-radius:4px;transform-origin:left;animation:grow .85s cubic-bezier(.2,.9,.3,1) both}
 .dim .ds{font-size:11.8px;color:#A2B2D6;margin-top:6px;line-height:1.5}
 
-/* replay */
 .rep{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:10px;margin-bottom:11px;overflow:hidden}
 .rep .rh{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;width:100%;background:none;border:none;color:#fff;text-align:left;font-family:inherit}
 .rep .rh:hover{background:rgba(255,255,255,.045)}
@@ -413,7 +380,6 @@ body:not(.consoleon) #facil{bottom:6px}
 .rep .lab.g{color:#8FE494}
 .rep .you{border-left:2px solid rgba(255,255,255,.25);padding-left:11px;margin-bottom:4px}
 
-/* attack chain */
 .chain{display:flex;gap:0;overflow-x:auto;padding:4px 0 10px}
 .chain .st{min-width:158px;flex:1;position:relative;padding:0 9px}
 .chain .st::after{content:'';position:absolute;right:-6px;top:19px;width:12px;height:12px;border-top:2px solid rgba(255,255,255,.22);
@@ -425,7 +391,6 @@ body:not(.consoleon) #facil{bottom:6px}
 .chain .st .td{font-size:11.5px;color:#A2B2D6;line-height:1.45;margin-bottom:6px}
 .chain .st .mi{font-family:var(--mono);font-size:10px;color:#8496C4;border:1px solid rgba(255,255,255,.16);border-radius:3px;padding:1px 5px;display:inline-block}
 
-/* action items */
 .ai{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
   border-radius:9px;padding:13px 15px;margin-bottom:9px}
 .ai .num{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ip-amber);flex-shrink:0;margin-top:1px}
@@ -436,36 +401,28 @@ body:not(.consoleon) #facil{bottom:6px}
 .sev-m{border-left:3px solid var(--ip-gold)}
 .sev-l{border-left:3px solid var(--ip-blue2)}
 
-/* KQL on dark */
 .dkql{background:#0D1436;border:1px solid rgba(255,255,255,.14);border-radius:8px;overflow:hidden;margin-bottom:12px}
 .dkql .h{padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.1);font-size:12.4px;font-weight:700;display:flex;align-items:center;gap:8px}
 .dkql pre{margin:0;padding:12px 14px;font-family:var(--mono);font-size:11.8px;line-height:1.6;color:#D6E2F5;white-space:pre-wrap;overflow-x:auto}
 .dkql .k-op{color:#7FB3FF}.dkql .k-fn{color:#E8C07D}.dkql .k-str{color:#FF9E9B}.dkql .k-num{color:#8FE494}.dkql .k-tab{color:#FFB27A;font-weight:600}.dkql .k-cmt{color:#8496C4}
 
-/* owl */
 .owlwrap{display:flex;gap:15px;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
   border-left:3px solid var(--ip-amber);border-radius:11px;padding:16px 18px;margin-bottom:12px}
 .owlwrap .ot{font-size:13.4px;font-weight:700;margin-bottom:5px}
 .owlwrap .od{font-size:12.8px;line-height:1.6;color:#C7D2EC}
 
-/* toast */
 #toast{position:fixed;right:20px;bottom:calc(var(--console-h) + 20px);z-index:970;background:#fff;border:1px solid var(--ms-line);
   border-left:4px solid var(--ip-burnt);border-radius:6px;box-shadow:0 8px 28px rgba(0,18,58,.24);padding:12px 14px;display:none;gap:10px;
   max-width:390px;font-size:12.5px;animation:slidein .3s ease-out both}
 #toast.show{display:flex}
 
-/* ---------------- narrower screens ----------------
-   The exercise is built for a shared screen or a laptop. Below that the
-   drawer stops pushing the frame and overlays instead, and the decision
-   blade becomes a sheet so the options stay readable. */
 @media(max-width:1500px){ .meter{max-width:112px} }
 @media(max-width:1340px){
   body.facilon #app{padding-right:0}
   #dblade{width:412px}
   body.bladeon #stagewrap{padding-right:412px}
 }
-/* On a laptop the score meters earn their space more than the pip trail,
-   so the pips go first and the meters follow only when it is really tight. */
+
 @media(max-width:1280px){ .c-pips,.c-vdiv{display:none} }
 @media(max-width:1040px){
   #dblade{width:360px}
@@ -486,7 +443,6 @@ body:not(.consoleon) #facil{bottom:6px}
   .cbtn kbd{display:none}
 }
 
-/* print: after action report */
 @media print{
   html,body{overflow:visible;height:auto;background:#fff}
   #app,#console,#facil,#toast,#simband,#simtag,.noprint{display:none!important}
@@ -552,9 +508,6 @@ body:not(.consoleon) #facil{bottom:6px}
 <div id="screen"><div class="sc" id="screenBody"></div></div>
 
 <script>
-/* =========================================================================
-   ICONS  ·  inline SVG, nothing loaded from the network
-   ========================================================================= */
 const IC=(p,s=16,x='')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" ${x}>${p}</svg>`;
 const icon={
  waffle:(s=16)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="5" r="1.9"/><circle cx="12" cy="5" r="1.9"/><circle cx="19" cy="5" r="1.9"/><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/><circle cx="5" cy="19" r="1.9"/><circle cx="12" cy="19" r="1.9"/><circle cx="19" cy="19" r="1.9"/></svg>`,
@@ -615,12 +568,6 @@ const icon={
  building:(s=16)=>IC('<rect x="4" y="3" width="16" height="18" rx="1.5"/><line x1="8" y1="7" x2="8" y2="7"/><line x1="12" y1="7" x2="12" y2="7"/><line x1="16" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="8" y2="11"/><line x1="12" y1="11" x2="12" y2="11"/><line x1="16" y1="11" x2="16" y2="11"/><path d="M10 21v-5h4v5"/>',s),
 };
 
-/* =========================================================================
-   PROFO  ·  the IT Professor mascot, served from the blog's own storage.
-   One constant, so swapping variant art is a single edit. The image is the
-   only network call in this file; if it fails the layout holds and the
-   wordmark still reads.
-   ========================================================================= */
 const PROFO_IMG='https://storage.ghost.io/c/3c/1d/3c1dd412-3b6a-4afe-8bbc-88099d729abf/content/images/size/w960/2025/08/PROFOHACKER.png';
 
 function profo(s=52){
@@ -629,7 +576,6 @@ function profo(s=52){
    +` onerror="this.style.visibility='hidden'">`;
 }
 
-/* The IT Professor mark: Profo plus the wordmark, for chrome and screens. */
 function ipMark(h=16,onDark=true){
   const fs=Math.round(h*1.02);
   return `<span style="display:inline-flex;align-items:center;gap:${Math.round(h*.42)}px;flex-shrink:0;line-height:1">`
@@ -638,9 +584,6 @@ function ipMark(h=16,onDark=true){
    +`color:${onDark?'#fff':'var(--ip-navy)'}">IT<span style="color:${onDark?'var(--ip-amber)':'var(--ip-acc)'}"> Professor</span></span></span>`;
 }
 
-/* =========================================================================
-   SMALL HELPERS
-   ========================================================================= */
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const sev=(s,lbl=true)=>`<span class="sevsq ${s}"><span class="sq"><i></i><i></i><i></i></span>${lbl?s:''}</span>`;
@@ -672,7 +615,7 @@ function toast(html,ms=3400){
   const t=$('toast');t.innerHTML=`<span style="color:var(--ip-amber);flex-shrink:0">${icon.info(16)}</span><div>${html}</div>`;
   t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),ms);
 }
-/* naive KQL colouriser, good enough for display */
+
 function kqlHi(src){
   return esc(src)
    .replace(/(\/\/[^\n]*)/g,'<span class="k-cmt">$1</span>')
@@ -682,18 +625,6 @@ function kqlHi(src){
    .replace(/\b(\d+[dhm]?)\b/g,'<span class="k-num">$1</span>');
 }
 
-/* =========================================================================
-   SCENARIO  ·  Operation Silent Ledger
-   Everything the exercise says lives in this object. The engine below
-   knows nothing about the content, so a second scenario is a copy of this
-   block and nothing else.
-
-   Scoring dimensions, 25 points each:
-     D  Detection and triage
-     C  Containment
-     E  Evidence and scoping
-     K  Communication and escalation
-   ========================================================================= */
 const SCENARIO={
   id:'TTX-SL-01',
   codename:'Operation Silent Ledger',
@@ -722,9 +653,8 @@ const SCENARIO={
     'Handle the moment the incident stops being technical'
   ],
 
-
   phases:[
-  /* ---------------------------------------------------------------- 1 */
+
   {
     id:'p1',no:1,clock:'09:14',title:'The queue',view:'queue',rail:'bolt',
     inject:{
@@ -763,7 +693,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 2 */
   {
     id:'p2',no:2,clock:'09:20',title:'The identity page',view:'identity',rail:'users',
     inject:{
@@ -801,7 +730,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 3 */
   {
     id:'p3',no:3,clock:'09:28',title:'What the sessions say',view:'hunt',rail:'search',
     inject:{
@@ -840,7 +768,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 4 */
   {
     id:'p4',no:4,clock:'09:33',title:'First containment',view:'identity',rail:'users',
     inject:{
@@ -880,7 +807,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 5 */
   {
     id:'p5',no:5,clock:'09:41',title:'Persistence sweep',view:'huntaudit',rail:'search',
     inject:{
@@ -921,7 +847,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 6 */
   {
     id:'p6',no:6,clock:'09:52',title:'Scope of access',view:'huntfiles',rail:'search',
     inject:{
@@ -963,7 +888,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 7 */
   {
     id:'p7',no:7,clock:'10:06',title:'The moment it stops being technical',view:'bridge',rail:'bolt',
     inject:{
@@ -1002,7 +926,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 8 */
   {
     id:'p8',no:8,clock:'10:19',title:'The mailbox is still sending',view:'email',rail:'mail',
     inject:{
@@ -1040,7 +963,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 9 */
   {
     id:'p9',no:9,clock:'10:34',title:'The call',view:'call',rail:'bolt',
     inject:{
@@ -1081,7 +1003,6 @@ const SCENARIO={
     }
   },
 
-  /* ---------------------------------------------------------------- 10 */
   {
     id:'p10',no:10,clock:'10:47',title:'Closing the incident',view:'close',rail:'bolt',
     inject:{
@@ -1120,7 +1041,6 @@ const SCENARIO={
   }
   ],
 
-  /* ---------------- debrief content ---------------- */
   dims:{
     D:{k:'D',nm:'Detection and triage',max:25,c:'#4FC3F7',
        hi:'The team read the telemetry for what it was and did not let severity choose the priority.',
@@ -1313,16 +1233,9 @@ CloudAppEvents
   ]
 };
 
-/* =========================================================================
-   PORTAL VIEWS
-   Every screen below is modelled on the real product surface. Where the
-   evidence does not live in Defender, the exercise changes portals rather
-   than inventing a page that does not exist.
-   ========================================================================= */
 const S=SCENARIO;
 const VIEWS={};
 
-/* ---- Defender XDR · Incidents & alerts · Incidents ---- */
 VIEWS.queue=()=>`
 ${crumbs(['Home','Incidents & alerts','Incidents'])}
 <div class="pagepad">
@@ -1374,11 +1287,6 @@ ${crumbs(['Home','Incidents & alerts','Incidents'])}
   <div class="mut2" style="margin-top:9px;font-size:11.5px">4 items · Sorted by Severity, descending</div>
 </div>`;
 
-/* ---- Defender XDR · Assets · Identities · entity page ----
-   Layout follows the live page: entity details on the left with the
-   Protection, User threat, Top UEBA anomalies, Observed in organisation
-   and Contact sections, summary cards on the right, and the action bar
-   top right. There is no sign in table on this page, which is the point. */
 VIEWS.identity=()=>`
 ${crumbs(['Identity Inventory',S.victim])}
 <div class="pagepad" style="padding-top:4px">
@@ -1503,10 +1411,6 @@ ${crumbs(['Identity Inventory',S.victim])}
   </div>
 </div>`;
 
-/* ---- Defender XDR · Hunting · Advanced hunting ----
-   The unified portal can query the Sentinel workspace tables alongside the
-   Defender tables when the workspace is connected, which is how both the
-   interactive and the non interactive sign in logs end up in one result. */
 VIEWS.hunt=()=>{
 const q=`// Both sign in tables, correlated on the session identifier.
 // SigninLogs holds interactive sign ins only. Everything an application
@@ -1570,7 +1474,6 @@ ${crumbs(['Home','Hunting','Advanced hunting'])}
   <div class="mut2" style="margin-top:9px;font-size:11.5px">Showing 10 of 19. Two session identifiers. One of them appears from two autonomous systems.</div>
 </div>`;};
 
-/* ---- Defender XDR · Hunting · Advanced hunting · file scoping ---- */
 VIEWS.huntfiles=()=>{
 const q=`// What the stolen session actually reached. The identity comes from
 // RawEventData.UserId, which carries the user principal name; AccountId
@@ -1620,11 +1523,6 @@ ${crumbs(['Home','Hunting','Advanced hunting'])}
   </div>
 </div>`;};
 
-/* ---- Defender XDR · Hunting · Advanced hunting · AuditLogs sweep ----
-   The persistence artefacts are Entra audit events, and the per user
-   audit blade in Entra will not show the consent, because that blade
-   lists events targeting the user and a consent targets the service
-   principal. So the sweep is a query against the AuditLogs table. ---- */
 VIEWS.huntaudit=()=>{
 const q=`// Persistence sweep for one identity. Note what is NOT here: the inbox
 // rule. Exchange writes mailbox rules to the unified audit log, which
@@ -1674,7 +1572,6 @@ ${crumbs(['Home','Hunting','Advanced hunting'])}
   <div class="mut2" style="margin-top:9px;font-size:11.5px">5 rows. No conditional access policy was modified and no device was registered. The inbox rule is not in this table, and it never will be.</div>
 </div>`;};
 
-/* ---- Bridge conversation. No invented product page. ---- */
 VIEWS.bridge=()=>`
 ${crumbs(['Home','Incidents & alerts','Incidents','4472'])}
 <div class="pagepad">
@@ -1699,7 +1596,6 @@ ${crumbs(['Home','Incidents & alerts','Incidents','4472'])}
   </div>
 </div>`;
 
-/* ---- Defender XDR · Email & collaboration · Explorer ---- */
 VIEWS.email=()=>`
 ${crumbs(['Home','Email & collaboration','Explorer'])}
 <div class="pagepad">
@@ -1754,7 +1650,6 @@ ${crumbs(['Home','Email & collaboration','Explorer'])}
   </div>
 </div>`;
 
-/* ---- The call ---- */
 VIEWS.call=()=>`
 ${crumbs(['Home','Incidents & alerts','Incidents','4472'])}
 <div class="pagepad">
@@ -1784,7 +1679,6 @@ ${crumbs(['Home','Incidents & alerts','Incidents','4472'])}
   </div>
 </div>`;
 
-/* ---- Defender XDR · incident · Manage incident ---- */
 VIEWS.close=()=>`
 ${crumbs(['Home','Incidents & alerts','Incidents','4472'])}
 <div class="pagepad" style="position:relative">
@@ -1834,16 +1728,13 @@ ${crumbs(['Home','Incidents & alerts','Incidents','4472'])}
   </div>
 </div>`;
 
-/* =========================================================================
-   ENGINE
-   ========================================================================= */
 const ST={
   started:false, phase:0, team:'',
   timerOn:true, paused:false, remaining:0, tick:null,
-  elapsed:0,                 // simulated minutes spent
-  answered:{},               // phaseId -> {optId, verdict, score, timedOut}
-  optOrder:{},               // phaseId -> shuffled option ids, fixed once per run
-  flags:{},                  // branching state
+  elapsed:0,
+  answered:{},
+  optOrder:{},
+  flags:{},
   score:{D:0,C:0,E:0,K:0},
   containedAt:null, notifiedAt:null, recallAt:null,
   facilOpen:false
@@ -1858,7 +1749,6 @@ function clockAt(minsFromStart){
 }
 function resolve(v){return typeof v==='function'?v(ST.flags):v;}
 
-/* ---------------- console ---------------- */
 function renderConsole(){
   const ph=S.phases[ST.phase];
   if(!ph) return;
@@ -1895,7 +1785,6 @@ function renderConsole(){
   $('btnNext').onclick=advance;
 }
 
-/* Reset arms first and fires second. Four seconds to change your mind. */
 let resetArmed=false,resetT=null;
 function armReset(){
   if(resetArmed){clearTimeout(resetT);resetArmed=false;restart();return;}
@@ -1917,7 +1806,6 @@ function renderClock(){
   c.className='c-clock'+(ST.remaining<=10?' over':(ST.remaining<=30?' warn':''));
 }
 
-/* ---------------- timer ---------------- */
 function startTimer(sec){
   stopTimer();
   if(!ST.timerOn){renderClock();return;}
@@ -1941,7 +1829,6 @@ function toggleTimer(){
   toast(ST.timerOn?'Decision timer on. Each decision is timed.':'Decision timer off. Discussion mode, no time pressure.');
 }
 
-/* ---------------- phases ---------------- */
 function gotoPhase(i){
   if(i<0||i>=S.phases.length) return;
   ST.phase=i;stopTimer();renderPhase();
@@ -1974,10 +1861,6 @@ function injectHtml(ph){
     </div></div>`;
 }
 
-/* Options are shuffled per run so the strong answer is not always the one
-   the room reads first. The order is generated once per phase and then held,
-   so stepping backwards and forwards does not reshuffle under anyone. The
-   chosen option is always resolved by id, never by position. */
 function optOrder(ph){
   if(!ST.optOrder[ph.id]){
     const ids=ph.decision.opts.map(o=>o.id);
@@ -1992,7 +1875,6 @@ function optOrder(ph){
     .filter(Boolean);
 }
 
-/* ---------------- decision blade ---------------- */
 function renderBlade(ph,already){
   const old=$('dblade');if(old) old.remove();
   const d=ph.decision;
@@ -2049,7 +1931,6 @@ function renderBlade(ph,already){
   }
 }
 
-/* ---------------- commit and score ---------------- */
 function commit(optId){
   const ph=S.phases[ST.phase],d=ph.decision;
   const o=d.opts.find(x=>x.id===optId);
@@ -2075,7 +1956,6 @@ function timeOut(){
   toast('<b>Time.</b> No decision was recorded, and the scenario moved without you.');
 }
 
-/* ---------------- facilitator drawer ---------------- */
 function toggleFacil(){
   ST.facilOpen=!ST.facilOpen;
   $('facil').classList.toggle('show',ST.facilOpen);
@@ -2101,7 +1981,6 @@ $('facilClose').innerHTML=icon.x(16);
 $('facilClose').onclick=toggleFacil;
 $('consoleGrip').onclick=()=>document.body.classList.toggle('consoleon');
 
-/* ---------------- brief screen ---------------- */
 function showBrief(){
   $('screen').classList.add('show');
   $('screenBody').innerHTML=`
@@ -2170,7 +2049,6 @@ function begin(withTimer){
   gotoPhase(0);
 }
 
-/* ---------------- debrief ---------------- */
 function total(){return DIMKEYS.reduce((a,k)=>a+ST.score[k],0);}
 function bandFor(t){return S.bands.find(b=>t>=b.min)||S.bands[S.bands.length-1];}
 function ring(pct,val){
@@ -2316,7 +2194,6 @@ function restart(){
   showBrief();
 }
 
-/* ---------------- keyboard ---------------- */
 document.addEventListener('keydown',e=>{
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
   const k=e.key.toLowerCase();
@@ -2336,10 +2213,6 @@ document.addEventListener('keydown',e=>{
     else{const n=$('btnAdv');if(n) n.click();}}
 });
 
-/* =========================================================================
-   SELF TEST  ·  append ?test=1 to the file path to run
-   Scenario integrity checks, so a new scenario cannot ship broken.
-   ========================================================================= */
 function selfTest(){
   const R=[],ok=(n,c,d='')=>R.push({n,pass:!!c,d});
   ok('T1 phases exist',S.phases.length>0,`${S.phases.length} phases`);
@@ -2392,7 +2265,7 @@ function selfTest(){
      const ph=S.phases[0];
      const first=optOrder(ph).map(o=>o.id).join('');
      const held =optOrder(ph).map(o=>o.id).join('');
-     if(first!==held) return false;                       // must not reshuffle
+     if(first!==held) return false;
      if(optOrder(ph).length!==ph.decision.opts.length) return false;
      let strongFirst=0,runs=200;
      for(let r=0;r<runs;r++){
@@ -2401,7 +2274,7 @@ function selfTest(){
      }
      ST.optOrder={};
      const rate=strongFirst/(runs*S.phases.length);
-     return rate>0.15&&rate<0.35;                          // ~1 in 4, not fixed
+     return rate>0.15&&rate<0.35;
    })());
   ok('T23 no contractions in scenario copy',
      !/\b(don't|can't|won't|it's|you're|they're|we're|isn't|doesn't|didn't|hasn't|haven't|wasn't|weren't|couldn't|wouldn't|shouldn't)\b/i.test(JSON.stringify(S)));
@@ -2421,10 +2294,8 @@ function selfTest(){
   return {pass,total:R.length,results:R};
 }
 
-/* Handle for authoring and debugging: TTX.SCENARIO, TTX.state, TTX.goto(n) */
 window.TTX={SCENARIO:S,state:ST,views:VIEWS,goto:gotoPhase,restart:restart,finish:finish,test:selfTest};
 
-/* ---------------- boot ---------------- */
 (function boot(){
   const params=new URLSearchParams(location.search);
   if(params.get('test')==='1'){selfTest();return;}
